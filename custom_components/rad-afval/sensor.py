@@ -9,7 +9,7 @@ Version: 0.0.1  20200210 - Initial Release
 import voluptuous as vol
 from datetime import datetime
 import urllib.error
-from .const.const import (
+from .const import (
     MIN_TIME_BETWEEN_UPDATES,
     _LOGGER,
     CONF_POSTALCODE,
@@ -22,7 +22,7 @@ from .const.const import (
     SENSOR_TYPES,
 )
 
-from .location.radhw import RadhwAfval
+from .radhw import RadhwAfval
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 import homeassistant.helpers.config_validation as cv
 from homeassistant.const import CONF_RESOURCES

@@ -1,4 +1,4 @@
-from ..const.const import (
+from .const import (
     _LOGGER,
 )
 from bs4 import BeautifulSoup
