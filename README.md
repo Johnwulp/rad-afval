@@ -6,10 +6,18 @@ Source and images is copied from:
 https://github.com/pippyn/Home-Assistant-Sensor-Afvalbeheer
 https://github.com/xirixiz/Home-Assistant-Sensor-Afvalwijzer
 
-### Install:
+## Install:
+There are two ways to install:
+
+### Manual:
 - Copy the files in the /custom_components/rad-afval/ folder to: [homeassistant]/custom_components/rad-afval/
 - Restart homeassistant
 
+### HACS: 
+- Find plugin under integration
+- Restart homeassistant
+
+## After install, create config:
 Example config:
 ```Configuration.yaml:
 sensor:
@@ -41,7 +49,7 @@ If you wish to remove the year and the dashes and want to show the name of the m
 ```yaml
 21 Jan
 ```
-### Interface on frontend
+## Interface on frontend
 For a great looking, and sortable card, please install https://github.com/thomasloven/lovelace-auto-entities
 ![Frontend](frontend.png)
 
