@@ -43,7 +43,7 @@ Available resources:
 If you want to adjust the way the date is presented. You can do it using the dateformat option. All [python strftime options](http://strftime.org/) should work.
 Default is '%d-%m-%Y', which will result in per example: 
 ```yaml
-21-1-2020.
+21-1-2020
 ```
 If you wish to remove the year and the dashes and want to show the name of the month abbreviated, you would provide '%d %b'. Which will result in: 
 ```yaml
