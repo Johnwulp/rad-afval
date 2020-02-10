@@ -1,10 +1,9 @@
-<a href="https://www.buymeacoffee.com/johnwulp" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
-
 [![custom_updater][customupdaterbadge]][customupdater]
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
+<a href="https://www.buymeacoffee.com/johnwulp" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
 ## Home Assisant sensor component for RAD Hoekschewaard Afval Kalender
 Provides Home Assistant sensors for the Dutch waste collectors RAD Hoekschewaard 
