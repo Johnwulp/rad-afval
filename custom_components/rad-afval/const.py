@@ -11,6 +11,7 @@ SENSOR_TYPES = {
 CONF_POSTALCODE = "postalcode"
 CONF_STREET_NUMBER = "streetnumber"
 CONF_DATE_FORMAT = "dateformat"
+CONF_COMPANYCODE = "companycode"
 SENSOR_PREFIX = "RAD HW Afval "
 ATTR_LAST_UPDATE = "last_update"
 ATTR_HIDDEN = "hidden"

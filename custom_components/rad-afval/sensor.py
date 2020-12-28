@@ -4,6 +4,7 @@ Sensor component for RAD Hoekschewaard Afval Kalender
 Author: John van der Wulp
 
 Version: 0.0.1  20200210 - Initial Release
+Version: 0.0.2  20201229 - Changes for new API
 """
 
 import voluptuous as vol
@@ -15,6 +16,7 @@ from .const import (
     CONF_POSTALCODE,
     CONF_STREET_NUMBER,
     CONF_DATE_FORMAT,
+    CONF_COMPANYCODE,
     SENSOR_PREFIX,
     ATTR_LAST_UPDATE,
     ATTR_HIDDEN,
@@ -29,13 +31,14 @@ from homeassistant.const import CONF_RESOURCES
 from homeassistant.util import Throttle
 from homeassistant.helpers.entity import Entity
 
-REQUIREMENTS = ["BeautifulSoup4==4.7.0"]
+REQUIREMENTS = []
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_RESOURCES, default=[]): vol.All(cv.ensure_list, [vol.In(SENSOR_TYPES)]),
         vol.Required(CONF_POSTALCODE, default="3262CD"): cv.string,
         vol.Required(CONF_STREET_NUMBER, default="5"): cv.string,
+        vol.Required(CONF_COMPANYCODE, default="13a2cad9-36d0-4b01-b877-efcb421a864d"): cv.string,
         vol.Optional(CONF_DATE_FORMAT, default="%d-%m-%Y"): cv.string,
     }
 )
@@ -74,9 +77,10 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     postalcode = config.get(CONF_POSTALCODE)
     street_number = config.get(CONF_STREET_NUMBER)
     date_format = config.get(CONF_DATE_FORMAT)
+    companycode = config.get(CONF_COMPANYCODE)
 
     try:
-        data = RadhwAfvalData(postalcode, street_number)
+        data = RadhwAfvalData(postalcode, street_number, companycode)
     except urllib.error.HTTPError as error:
         _LOGGER.error(error.reason)
         return False
@@ -93,15 +97,16 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
 
 class RadhwAfvalData(object):
-    def __init__(self, postalcode, street_number):
+    def __init__(self, postalcode, street_number, companycode):
         self.data = None
         self.postalcode = postalcode
         self.street_number = street_number
+        self.companycode = companycode
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
     def update(self):
         _LOGGER.debug("Updating RadhwAfvalSensors")
-        self.data = RadhwAfval().get_data(self.postalcode, self.street_number)
+        self.data = RadhwAfval().get_data(self.postalcode, self.street_number, self.companycode)
 
 class RadhwAfvalSensor(Entity):
     def __init__(self, data, sensor_type, date_format):

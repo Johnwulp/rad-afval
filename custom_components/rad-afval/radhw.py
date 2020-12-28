@@ -1,31 +1,56 @@
 from .const import (
     _LOGGER,
 )
-from bs4 import BeautifulSoup
-from datetime import datetime
-import urllib.request
-import urllib.error
+from urllib import request, parse
+import json
+from datetime import datetime, timedelta, date
 
 class RadhwAfval(object):
-    def get_data(self, postalcode, street_number):
+    def get_data(self, postalcode, street_number, companycode):
         _LOGGER.debug("Updating Waste collection dates")
 
         try:
-            url = "https://www.radhw.nl/inwoners/ophaalschema?p={}+{}&h={}".format(postalcode[:4], postalcode[-2:], street_number)
-            _LOGGER.debug("URL: " + url)
-            req = urllib.request.Request(url=url)
-            f = urllib.request.urlopen(req)
-            html = f.read().decode("utf-8")
-            soup = BeautifulSoup(html, "html.parser")
+            url = 'https://wasteprod2api.ximmio.com/api/FetchAdress'
+            data = {"postCode": str(postalcode),"houseNumber": str(street_number),"companyCode": str(companycode)}
+            _LOGGER.debug("FetchAdress data: " + str(data))
+            data = json.dumps(data)
+            data = data.encode()
+            headers = {'content-type': 'application/json;charset=UTF-8'}
+            req = request.Request(url, data=data, headers=headers)
+            response = request.urlopen(req)
+            data = json.load(response)
+            uniqueid = data['dataList'][0]['UniqueId']
+            _LOGGER.debug("uniqueid: " + str(uniqueid))
+            
+            startdate = date.today() + timedelta(days=1)
+            enddate = date.today() + timedelta(days=31)
+
+            url = 'https://wasteprod2api.ximmio.com/api/GetCalendar'
+            data = {"companyCode": str(companycode),"startDate": str(startdate),"endDate": str(enddate),"community":"Hoeksche Waard","uniqueAddressID": str(uniqueid)}
+            _LOGGER.debug("GetCalendar data: " + str(data))
+            data = json.dumps(data)
+            data = data.encode()
+            req = request.Request(url, data=data, headers=headers)
+            response = request.urlopen(req)
+            data = json.load(response)
+            _LOGGER.debug("Result data: " + str(data))
+            data = (data['dataList'])
+
+            SENSORNAMES = {
+                'GREEN': 'gft',
+                'GREY': 'rest',
+                'PAPER': 'papier',
+                'PACKAGES': 'pmd'
+            }
+
             waste_dict = {}
-            for item in soup.findAll('ul',{'class':'downloads'}):
-                sub_items = item.findAll('li')
-                for sub_item in sub_items:
-                    t = sub_item()[0].get('class')[1]
-                    t = t.split("-")
-                    d = sub_item()[1].text.split(" ")[1:4]
-                    i = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"].index(d[1])
-                    waste_dict[t[2]] = d[2] + "-" + str(i+1) + "-" + d[0]
+            for item in data:
+                pickupdate = item['pickupDates'][0]
+                pickuptype = item['_pickupTypeText']
+                for siteType, hassType in SENSORNAMES.items():
+                    pickuptype = pickuptype.replace(siteType, hassType)
+                collection_date = datetime.strptime(pickupdate, "%Y-%m-%dT%H:%M:%S").date()
+                waste_dict[pickuptype] = collection_date.strftime("%Y-%m-%d")
             return waste_dict
             
         except urllib.error.URLError as exc:
