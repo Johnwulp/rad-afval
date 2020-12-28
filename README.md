@@ -8,7 +8,7 @@
 
 ## Home Assisant sensor component for RAD Hoekschewaard Afval Kalender
 Provides Home Assistant sensors for the Dutch waste collectors RAD Hoekschewaard 
-Check your postalcode on https://www.radhw.nl/inwoners/ophaalschema
+Check your postalcode on https://www.radbv.nl/afvalkalender/
 
 Source and images is copied from:
 https://github.com/pippyn/Home-Assistant-Sensor-Afvalbeheer
@@ -39,6 +39,9 @@ sensor:
     streetnumber: 5
     dateformat: '%a %d %b'
 ```
+
+## New parameter companycode
+Since dec 2020 the API has changed, and uses a new parameter called 'companycode'. The default value is always: '13a2cad9-36d0-4b01-b877-efcb421a864d' but can be changed to something else if needed in the configuration of the sensor.
 
 Available resources:
 
