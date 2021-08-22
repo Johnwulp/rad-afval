@@ -22,7 +22,7 @@ class RadhwAfval(object):
             uniqueid = data['dataList'][0]['UniqueId']
             _LOGGER.debug("uniqueid: " + str(uniqueid))
             
-            startdate = date.today() + timedelta(days=1)
+            startdate = date.today()
             enddate = date.today() + timedelta(days=31)
 
             url = 'https://wasteprod2api.ximmio.com/api/GetCalendar'

@@ -2,9 +2,6 @@
 """
 Sensor component for RAD Hoekschewaard Afval Kalender
 Author: John van der Wulp
-
-Version: 0.0.1  20200210 - Initial Release
-Version: 0.0.2  20201229 - Changes for new API
 """
 
 import voluptuous as vol
