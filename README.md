@@ -99,3 +99,4 @@ homeassistant:
 - Version: 0.0.1  20200210 - Initial Release
 - Version: 0.0.2  20201229 - Changes for new API
 - Version: 0.0.3  20210822 - Changed filter to include today for 'next_pickup_in_days' sensor. Value will be 0 if pickup is today
+- Version: 0.0.4  20220203 - Changed device state property

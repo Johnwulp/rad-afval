@@ -1,9 +1,9 @@
 {
-  "domain": "rad-afval",
-  "name": "RAD Hoekschewaard Afval Kalender",
-  "documentation": "https://github.com/johnwulp/rad-afval",
-  "dependencies": [],
-  "codeowners": ["@johnwulp"],
-  "requirements": [],
-  "version": "0.0.3"
+    "domain": "rad-afval",
+    "name": "RAD Hoekschewaard Afval Kalender",
+    "documentation": "https://github.com/johnwulp/rad-afval",
+    "dependencies": [],
+    "codeowners": ["@johnwulp"],
+    "requirements": [],
+    "version": "0.0.4"
 }

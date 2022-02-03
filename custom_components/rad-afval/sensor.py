@@ -130,7 +130,7 @@ class RadhwAfvalSensor(Entity):
         return self._state
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         return {ATTR_LAST_UPDATE: self._last_update, ATTR_HIDDEN: self._hidden, ATTR_NEXT_PICKUP_IN_DAYS: self._next_pickup_in_days}
 
     def update(self):
